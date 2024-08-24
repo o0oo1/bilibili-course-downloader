@@ -5,6 +5,8 @@ bilibili课堂视频下载器
 ## 依赖组件
 - python环境
 - requests
-- ffmpeg（已内置）
+- ffmpeg（已内置，需使用git lfs下载)
+
 ## 使用方法
+
 运行main.py，输入课程网页播放链接和Cookie，视频下载到main.py同级目录
