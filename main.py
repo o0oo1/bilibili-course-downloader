@@ -60,7 +60,7 @@ for ep in epList:
     except Exception as e:
         print(e)
         if e.args[0] == 'dash':
-            print("第" + str(count) + "集下载失败，可能是无效的Cookie")
+            print("第" + str(count) + "集下载失败，可能是无效的Cookie或课程未购买")
             exit()
         if e.args[0] == 'data':
             print("第" + str(count) + "集尚未更新")
@@ -71,7 +71,9 @@ for ep in epList:
     try:
         cmd = "..\\ffmpeg.exe -i " + str(count) + ".mp4 -i " + str(count) + ".mp3 -vcodec copy -acodec copy \"" + ep[
             'title'] + ".mp4\" 1>nul 2>nul"
-        os.system(cmd)
+        result = os.system(cmd)
+        if result != 0:
+            raise Exception("合并失败")
     except Exception as e:
         print("第" + str(count) + "集合并失败")
         count += 1

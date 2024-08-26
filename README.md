@@ -5,7 +5,7 @@ bilibili课堂视频下载器
 ## 依赖组件
 - python环境
 - requests
-- ffmpeg（已内置，需使用git lfs下载)
+- ffmpeg（已内置)
 
 ## 使用方法
 
