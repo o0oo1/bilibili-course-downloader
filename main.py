@@ -30,7 +30,7 @@ while True:
 end = html_str.find("</script>", start) - 1
 json_str = html_str[start:end]
 my_json = json.loads(json_str.replace("\\", ""))
-epList = my_json['index']['epList']
+ep_list = my_json['index']['epList']
 headers["Cookie"] = cookie
 play_url = "https://api.bilibili.com/pugv/player/web/playurl?avid=%s&cid=%s&qn=0&fnver=0&fnval=16&fourk=1&gaia_source=&from_client=BROWSER&is_main_page=true&need_fragment=false&season_id=19591&isGaiaAvoided=false&ep_id=%s&session=ed1c4795e01bf762f6d1dbefc27379ef&voice_balance=1&drm_tech_type=2"
 count = 1
@@ -43,8 +43,8 @@ while os.path.exists(tmp_str):
 title = tmp_str
 os.mkdir(title)
 os.chdir(title)
-print("检测到" + str(len(epList)) + "集视频")
-for ep in epList:
+print("检测到" + str(len(ep_list)) + "集视频")
+for ep in ep_list:
     print('正在下载第' + str(count) + '集')
     try:
         ep_url = play_url % (ep['aid'], ep['cid'], ep['id'])
