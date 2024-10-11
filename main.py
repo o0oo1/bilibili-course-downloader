@@ -51,7 +51,7 @@ os.mkdir(title)
 os.chdir(title)
 print("检测到" + str(len(ep_list)) + "集视频")
 for ep in ep_list:
-    print('正在下载第' + str(count) + '集')
+    print('正在下载第' + str(count) + '集: ' + ep['title'])
     try:
         ep_url = play_url % (ep['aid'], ep['cid'], ep['id'])
         ep_json = requests.get(ep_url, headers=headers).json()
