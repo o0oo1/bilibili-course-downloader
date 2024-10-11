@@ -2,6 +2,12 @@ import requests
 import time
 import json
 import os
+import re
+
+def validateTitle(title):
+    string = r"[\/\\\:\*\?\"\<\>\|]"  # '/ \ : * ? " < > |'
+    new_title = re.sub(string, "_", title)
+    return new_title
 
 url = input("请输入视频地址：")
 cookie = input("请输入cookie：")
@@ -69,8 +75,7 @@ for ep in ep_list:
         count += 1
         continue
     try:
-        cmd = "..\\ffmpeg.exe -i " + str(count) + ".mp4 -i " + str(count) + ".mp3 -vcodec copy -acodec copy \"" + ep[
-            'title'] + ".mp4\" 1>nul 2>nul"
+        cmd = "..\\ffmpeg.exe -i " + str(count) + ".mp4 -i " + str(count) + ".mp3 -vcodec copy -acodec copy \"" + str(count) + "." + validateTitle(ep['title']) + ".mp4\" 1>nul 2>nul"
         result = os.system(cmd)
         if result != 0:
             raise Exception("合并失败")
