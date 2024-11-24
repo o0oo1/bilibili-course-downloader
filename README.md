@@ -1,6 +1,6 @@
 # bilibili-course-downloader
 bilibili课堂视频下载器
-# 预制条件
+# 预置条件
 课程已购买
 ## 依赖组件
 - python环境
