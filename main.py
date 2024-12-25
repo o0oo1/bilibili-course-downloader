@@ -41,6 +41,8 @@ headers["Cookie"] = cookie
 play_url = "https://api.bilibili.com/pugv/player/web/playurl?avid=%s&cid=%s&qn=0&fnver=0&fnval=16&fourk=1&gaia_source=&from_client=BROWSER&is_main_page=true&need_fragment=false&season_id=19591&isGaiaAvoided=false&ep_id=%s&session=ed1c4795e01bf762f6d1dbefc27379ef&voice_balance=1&drm_tech_type=2"
 count = 1
 title = my_json['index']['viewInfo']['title']
+orign_title = title
+title = validateTitle(title)
 tmp = 1
 tmp_str = title
 while os.path.exists(tmp_str):
@@ -49,7 +51,8 @@ while os.path.exists(tmp_str):
 title = tmp_str
 os.mkdir(title)
 os.chdir(title)
-print("检测到" + str(len(ep_list)) + "集视频")
+print("发现课程：" + orign_title)
+print("共检测到" + str(len(ep_list)) + "集视频")
 for ep in ep_list:
     print('正在下载第' + str(count) + '集: ' + ep['title'])
     try:
