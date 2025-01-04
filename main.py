@@ -1,13 +1,27 @@
 import requests
+import ffmpeg
 import time
 import json
 import os
 import re
 
+
 def validateTitle(title):
     string = r"[\/\\\:\*\?\"\<\>\|]"  # '/ \ : * ? " < > |'
     new_title = re.sub(string, "_", title)
     return new_title
+
+def mergeVideoAudio(mp4_file, mp3_file, output_file):
+    try:
+        (
+            ffmpeg
+            .input(mp4_file)
+            .output(ffmpeg.input(mp3_file), output_file, vcodec='copy', acodec='copy')
+            .run(overwrite_output=True, capture_stdout=True, capture_stderr=True)
+        )
+    except ffmpeg.Error as e:
+        print(f"合并失败: {e.stderr.decode('utf8')}")
+        raise Exception("合并失败")
 
 url = input("请输入视频地址：")
 cookie = input("请输入cookie：")
@@ -37,7 +51,7 @@ end = html_str.find("</script>", start) - 1
 json_str = html_str[start:end]
 my_json = json.loads(json_str.replace("\\", ""))
 ep_list = my_json['index']['epList']
-headers["Cookie"] = cookie
+headers["Cookie"] = cookie.encode("utf_8").decode("latin1") 
 play_url = "https://api.bilibili.com/pugv/player/web/playurl?avid=%s&cid=%s&qn=0&fnver=0&fnval=16&fourk=1&gaia_source=&from_client=BROWSER&is_main_page=true&need_fragment=false&season_id=19591&isGaiaAvoided=false&ep_id=%s&session=ed1c4795e01bf762f6d1dbefc27379ef&voice_balance=1&drm_tech_type=2"
 count = 1
 title = my_json['index']['viewInfo']['title']
@@ -48,7 +62,7 @@ tmp_str = title
 while os.path.exists(tmp_str):
     tmp_str = title + "（" + str(tmp) + "）"
     tmp += 1
-title = tmp_str
+title = validateTitle(tmp_str)
 os.mkdir(title)
 os.chdir(title)
 print("发现课程：" + orign_title)
@@ -78,15 +92,16 @@ for ep in ep_list:
         count += 1
         continue
     try:
-        cmd = "..\\ffmpeg.exe -i " + str(count) + ".mp4 -i " + str(count) + ".mp3 -vcodec copy -acodec copy \"" + str(count) + "." + validateTitle(ep['title']) + ".mp4\" 1>nul 2>nul"
-        result = os.system(cmd)
-        if result != 0:
-            raise Exception("合并失败")
+        mp4_file = f"{count}.mp4"
+        mp3_file = f"{count}.mp3"
+        output_file = f"{count}.{validateTitle(ep['title'])}.mp4"
+        mergeVideoAudio(mp4_file, mp3_file, output_file)
+        os.remove(mp4_file)
+        os.remove(mp3_file)
     except Exception as e:
+        print(e)
         print("第" + str(count) + "集合并失败")
         count += 1
         continue
-    os.remove(str(count) + ".mp4")
-    os.remove(str(count) + ".mp3")
     count += 1
 print("下载完成")
