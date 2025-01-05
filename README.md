@@ -22,3 +22,9 @@ yes | python3 -m pip install alive_progress simplejson requests ffmpeg-python
 ## 使用方法
 
 运行 main.py，输入课程网页播放链接和 Cookie，视频下载到 main.py 同级目录。
+
+## 备注
+
+ffmpeg官网：https://ffmpeg.org/
+
+请先安装ffmpeg，并将其添加到PATH环境变量中

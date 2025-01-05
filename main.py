@@ -25,6 +25,7 @@ def mergeAudioVideo(mp4_file, mp3_file, output_file):
         raise Exception("合并失败")
 
 
+print("欢迎使用B站课堂视频下载工具")
 url = input("请输入视频地址：")
 cookie = input("请输入Cookie：")
 
