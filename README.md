@@ -12,7 +12,7 @@ BiliBili 课堂视频下载器
 - alive_progress
 - simplejson
 - requests
-- ffmpeg
+- ffmpeg-python
 
 ```shell
 yes | python3 -m pip uninstall ffmpeg python-ffmpeg
