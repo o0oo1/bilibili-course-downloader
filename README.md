@@ -9,8 +9,15 @@ BiliBili 课堂视频下载器
 ## 依赖组件
 
 - Python 环境
+- alive_progress
+- simplejson
 - requests
 - ffmpeg
+
+```shell
+yes | python3 -m pip uninstall ffmpeg python-ffmpeg
+yes | python3 -m pip install alive_progress simplejson requests ffmpeg-python
+```
 
 ## 使用方法
 
