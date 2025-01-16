@@ -25,8 +25,10 @@ def mergeVideoAudio(mp4_file, mp3_file, output_file):
         raise Exception("合并失败")
 
 
+print("================================")
 print("欢迎使用B站课堂视频下载工具")
-print("使用前请确定ffmpeg已正确安装并配置")
+print("使用前请确保ffmpeg已正确安装并配置")
+print("================================")
 print()
 
 url = input("请输入视频地址：")
